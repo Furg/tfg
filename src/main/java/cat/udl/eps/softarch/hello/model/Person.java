@@ -27,8 +27,14 @@ public class Person implements UserDetails{
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Greeting> greetings = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Measure> measures = new ArrayList<>();
+
     @URL
     private String imageUrl;
+
+    @NotBlank(message = "Role cannot be blank")
+    private String role = "USER";
 
     public Person() {
     }
@@ -49,6 +55,23 @@ public class Person implements UserDetails{
 
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
+    public String getRole() {
+        return role;
+    }
+
+    public List<Measure> getMeasures() {
+        return measures;
+
+    }
+
+    public void addMeasure(Measure newMeasure) {
+        measures.add(newMeasure);
+    }
+
+    public void removeMeasure(Measure measure) {
+        measures.remove(measure);
+    }
+
     public List<Greeting> getGreetings() {
         return greetings;
 
@@ -64,7 +87,8 @@ public class Person implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.commaSeparatedStringToAuthorityList("USER");
+        //return AuthorityUtils.commaSeparatedStringToAuthorityList(this.getRole());
+        return AuthorityUtils.createAuthorityList(this.getRole());
     }
 
     @Override

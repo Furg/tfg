@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <body>
 
@@ -14,6 +15,14 @@
     <c:if test="${not empty user.getImageUrl()}">
         <img src="${user.getImageUrl()}"/>
     </c:if>
+
+    <c:if test="${user.getUsername() eq username}">
+        <h3>User Measures</h3>
+        <c:forEach var="measure" items="${usermeasures.getMeasures()}">
+            <li>${measure.getId()}: ${measure.getDate()} ${measure.getWeight()}</li>
+        </c:forEach>
+    </c:if>
+
     <c:if test="${not empty user.getGreetings()}">
         <h3>User Greetings</h3>
         <c:forEach var="greeting" items="${user.getGreetings()}">

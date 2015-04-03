@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.hello.controller;
 
+import cat.udl.eps.softarch.hello.service.PersonMeasuresService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.google.common.base.Preconditions;
 import cat.udl.eps.softarch.hello.model.Person;
 import cat.udl.eps.softarch.hello.repository.PersonRepository;
 import cat.udl.eps.softarch.hello.service.PersonGreetingsService;
+import java.security.Principal;
 
 /**
  * Created by http://rhizomik.net/~roberto/
@@ -25,6 +27,8 @@ public class UserController {
     PersonRepository personRepository;
     @Autowired
     PersonGreetingsService personGreetingsService;
+    @Autowired
+    PersonMeasuresService personMeasuresService;
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -51,7 +55,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTML(@PathVariable("username") String username) {
-        return new ModelAndView("user", "user", retrieve(username));
+    public ModelAndView retrieveHTML(@PathVariable("username") String username, Principal principal ) {
+        String name = principal.getName(); //get logged in username
+
+        ModelAndView model = new ModelAndView("user", "user", retrieve(username));
+        model.addObject("username",name);
+        model.addObject("usermeasures",personMeasuresService.getPersonAndMeasures(username));
+
+        return model;
     }
 }

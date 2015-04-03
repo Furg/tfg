@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <body>
 <h2>Users List</h2>
@@ -11,5 +12,13 @@
         </c:forEach>
     </c:if>
     </ul>
+
+    <sec:authorize access="hasRole('USER')">
+        You have USER role.<br/>
+    </sec:authorize>
+
+    <sec:authorize access="hasRole('ADMIN')">
+        You have ADMIN role.<br/>
+    </sec:authorize>
 </body>
 </html>

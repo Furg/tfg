@@ -31,12 +31,17 @@ public class SignupController {
     public String signup(WebRequest request) {
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         if (connection != null) {
-            Person user = new Person(connection.getDisplayName(), "");
-            user.setImageUrl(connection.getImageUrl());
+            Person user;
             if(!personRepository.exists(connection.getDisplayName()))
             {
+                user = new Person(connection.getDisplayName(), "");
+                user.setImageUrl(connection.getImageUrl());
                 personRepository.save(user);
                 //providerSignInUtils.doPostSignUp(user.getUsername(), request);
+            }
+            else
+            {
+                user = personRepository.findOne(connection.getDisplayName());
             }
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
