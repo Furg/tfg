@@ -13,6 +13,9 @@ import org.springframework.web.context.request.WebRequest;
 import cat.udl.eps.softarch.hello.model.Person;
 import cat.udl.eps.softarch.hello.repository.PersonRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * Created by http://rhizomik.net/~roberto/
  */
@@ -25,7 +28,7 @@ public class SignupController {
     private final ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
 
     @RequestMapping(value="/login")
-    public String login() { return "login"; }
+    public String login() { return "startTemplate"; }
 
     @RequestMapping(value="/signup", method=RequestMethod.GET)
     public String signup(WebRequest request) {
