@@ -48,7 +48,7 @@ public class MeasureController {
     public String createHTML(@Valid @ModelAttribute("measure") Measure measure, BindingResult binding, HttpServletResponse response){
         if(binding.hasErrors()){
             logger.info("Validation error: {}", binding);
-            return "form";
+            return "measureform";
         }
         return "redirect:/users/"+create(measure).getUsername();
     }

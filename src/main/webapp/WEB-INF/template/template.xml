@@ -13,4 +13,8 @@
         <put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
     </definition>
 
+    <definition name="measureform" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/measureform.jsp"/>
+    </definition>
+
 </tiles-definitions>

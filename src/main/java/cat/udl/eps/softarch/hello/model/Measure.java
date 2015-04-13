@@ -2,6 +2,7 @@ package cat.udl.eps.softarch.hello.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +25,11 @@ public class Measure {
     @NotBlank(message = "Username cannot be blank")
     private String username;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date date;
 
     @NotNull(message = "Weight cannot be null")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
     private int weight;
 
     public Measure() {}

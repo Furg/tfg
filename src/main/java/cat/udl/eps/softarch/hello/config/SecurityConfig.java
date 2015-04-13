@@ -55,11 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/login",
                         "/signup/**",
                         "/greetings/**").permitAll()
-                .antMatchers("/users/**","/measures/**").authenticated()
-            .and()
-                .rememberMe()
-            .and()
-                .apply(new SpringSocialConfigurer());
+                .antMatchers("/users/**", "/measures/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                        .and()
+                        .rememberMe()
+                        .and()
+                        .apply(new SpringSocialConfigurer());
     }
 
     @Bean
