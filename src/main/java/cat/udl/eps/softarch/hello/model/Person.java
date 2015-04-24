@@ -88,7 +88,7 @@ public class Person implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //return AuthorityUtils.commaSeparatedStringToAuthorityList(this.getRole());
-        return AuthorityUtils.createAuthorityList(this.getRole());
+        return AuthorityUtils.createAuthorityList(this.role);
     }
 
     @Override

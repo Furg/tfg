@@ -19,9 +19,60 @@ public class Test {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
+    @NotBlank(message = "Tema no puede estar vac\u00EDo.")
+    private String type;
+
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<QTest> questions = new ArrayList<>();
+
+    public Test() {}
+
+    public Test(String name, String type, String description) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<QTest> getQuestions() {
+        return questions;
+    }
+
+    public void addQuestion(QTest newQuestion) {
+        questions.add(newQuestion);
+    }
+
+    public void removeQuestion(QTest question) {
+        questions.remove(question);
+    }
 
 }

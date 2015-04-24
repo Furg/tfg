@@ -5,7 +5,7 @@
 <tiles-definitions>
 
     <definition name="startTemplate" template="/WEB-INF/template/template.jsp">
-        <put-attribute name="header" value="/WEB-INF/views/user.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
     </definition>
 
@@ -15,6 +15,18 @@
 
     <definition name="measureform" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/measureform.jsp"/>
+    </definition>
+
+    <definition name="testform" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/testform.jsp"/>
+    </definition>
+
+    <definition name="tests" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/tests.jsp"/>
+    </definition>
+
+    <definition name="error" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/error.jsp"/>
     </definition>
 
 </tiles-definitions>
