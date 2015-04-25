@@ -2,8 +2,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
-<body>
+
 <h2>Users List</h2>
     <ul>
     <c:if test="${not empty users}">
@@ -20,5 +19,3 @@
     <sec:authorize access="hasRole('ADMIN')">
         You have ADMIN role.<br/>
     </sec:authorize>
-</body>
-</html>

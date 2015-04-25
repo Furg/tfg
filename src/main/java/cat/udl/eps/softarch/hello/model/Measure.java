@@ -25,7 +25,7 @@ public class Measure {
     @NotBlank
     private String username;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     @NotNull(message = "Peso no puede estar vac\u00EDo.")
@@ -34,6 +34,10 @@ public class Measure {
 
     @NotBlank
     private String category;
+
+    @NotNull(message = "Glucosa no puede estar vac\u00EDo.")
+    @NumberFormat(style = NumberFormat.Style.NUMBER)
+    private int glucose;
 
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private int rations;
@@ -48,10 +52,11 @@ public class Measure {
 
     public Measure() {}
 
-    public Measure(String username, Date date, int weight, String category) {
+    public Measure(String username, Date date, int weight, int glucose, String category) {
         this.username = username;
         this.date = date;
         this.weight = weight;
+        this.glucose = glucose;
         this.category = category;
     }
 
@@ -119,5 +124,13 @@ public class Measure {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getGlucose() {
+        return glucose;
+    }
+
+    public void setGlucose(int glucose) {
+        this.glucose = glucose;
     }
 }

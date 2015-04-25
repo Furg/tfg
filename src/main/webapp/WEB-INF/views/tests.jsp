@@ -2,8 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<body>
+
 <h2>Tests List</h2>
 <ul>
     <c:if test="${not empty tests}">
@@ -13,5 +12,4 @@
     </c:if>
 </ul>
 <p><a href="tests/form">Add</a></p>
-</body>
-</html>
+

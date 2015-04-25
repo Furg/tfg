@@ -7,6 +7,7 @@
     <definition name="startTemplate" template="/WEB-INF/template/template.jsp">
         <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
+        <put-attribute name="scripts" value=""/>
     </definition>
 
     <definition name="user" extends="startTemplate">
@@ -15,10 +16,12 @@
 
     <definition name="measureform" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/measureform.jsp"/>
+        <put-attribute name="scripts" value="/WEB-INF/views/measureform-scripts.jsp"/>
     </definition>
 
     <definition name="testform" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/testform.jsp"/>
+        <put-attribute name="scripts" value="/WEB-INF/views/testform-scripts.jsp"/>
     </definition>
 
     <definition name="tests" extends="startTemplate">

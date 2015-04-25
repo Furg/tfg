@@ -2,8 +2,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
-<body>
 
 <p><a href="/users">Users</a></p>
 
@@ -30,6 +28,3 @@
         </c:forEach>
     </c:if>
 </c:if>
-
-</body>
-</html>

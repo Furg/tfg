@@ -1,18 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-    <title>Error</title>
-</head>
-<body>
+
 <h1>Error</h1>
 <c:if test="${not empty error}">
     <p>
-        <b>Error Page:</b> ${error.getUrl()}
+        <b>Página de Error:</b> ${error.getUrl()}
     </p>
     <p>
-        <b>Error Message:</b> ${error.getMessage()}
+        <b>Mensaje de Error:</b> ${error.getMessage()}
     </p>
 </c:if>
-</body>
-</html>

@@ -4,14 +4,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <title>Test Form</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="/static/dynamic_list_helper2.js" type="text/javascript"></script>
-</head>
-<body>
-
 <h3>Creación de un test</h3>
 <c:set var="method" value="POST"/>
 <c:set var="action" value="/tests"/>
@@ -65,36 +57,8 @@
             </tr>
         </c:if>
         </tbody>
-        </table>
+    </table>
 
         <a href="#" id="addQuestion">Add Question</a>&nbsp;&nbsp;
     <input type="submit" value="Guardar Test" id="submit"/>
-        </form:form>
-
-
-        <script type="text/javascript">
-        function rowAdded(rowElement) {
-            //clear the imput fields for the row
-            $(rowElement).find("input").val('');
-            //may want to reset <select> options etc
-
-    }
-
-
-    $(document).ready( function() {
-        var config = {
-            rowClass : 'qtest',
-            addRowId : 'addQuestion',
-            removeRowClass : 'removeQuestion',
-            formId : 'questionListForm',
-            rowContainerId : 'questionListContainer',
-            indexedPropertyName : 'questions',
-            indexedPropertyMemberNames : 'question,answer',
-            rowAddedListener : rowAdded
-        };
-        new DynamicListHelper(config);
-    });
-</script>
-
-</body>
-</html>
+</form:form>
