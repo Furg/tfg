@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -60,7 +61,7 @@ public class MeasureController {
         Measure emptyMeasure = new Measure();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         emptyMeasure.setUsername(auth.getName());
-        emptyMeasure.setDate(Calendar.getInstance().getTime());
+        emptyMeasure.setDate(Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid")).getTime());
         return new ModelAndView("measureform","measure",emptyMeasure);
     }
 
