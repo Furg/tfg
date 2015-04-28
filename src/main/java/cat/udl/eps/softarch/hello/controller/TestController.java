@@ -7,6 +7,7 @@ import cat.udl.eps.softarch.hello.model.Test;
 import cat.udl.eps.softarch.hello.repository.MeasureRepository;
 import cat.udl.eps.softarch.hello.repository.TestRepository;
 import cat.udl.eps.softarch.hello.service.PersonMeasuresService;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class TestController {
     }
 
     // CREATE
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public void create(@Valid @RequestBody Test test) {
@@ -70,7 +71,7 @@ public class TestController {
         testRepository.save(test);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
+    @RequestMapping(value = "/form", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
     public String createHTML(@Valid @ModelAttribute("test") Test test, BindingResult binding, HttpServletResponse response, Model model){
         if(binding.hasErrors()){
             logger.info("Validation error: {}", binding);
@@ -107,11 +108,48 @@ public class TestController {
     {
         for(Iterator<QTest> i = test.getQuestions().iterator(); i.hasNext(); ) {
             QTest item = i.next();
-            if(!item.getAnswer().equals("Verdadero") || !item.getAnswer().equals("Falso")){
+            if(!item.getAnswer().equals("Verdadero") && !item.getAnswer().equals("Falso")){
                 return false;
             }
         }
         return true;
+    }
+
+    // DO TEST
+    @RequestMapping(value = "/do/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
+    public String createHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("test") Test test, BindingResult binding, HttpServletResponse response, Model model){
+        Test dbtest = retrieve(id);
+        compareAnswers(dbtest,test);
+
+        return "redirect:/tests";
+    }
+
+    public void compareAnswers(Test dbtest, Test test) {
+
+    }
+
+    // Create do form
+    @RequestMapping(value = "/do/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Test retrieve(@PathVariable("id") Long id) {
+        logger.info("Retrieving test number {}", id);
+        Preconditions.checkArgument(testRepository.exists(id),"El test con id %s no existe.", id);
+        return testRepository.findOne(id);
+    }
+
+    @RequestMapping(value = "/do/{id}", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView createDoForm(@PathVariable("id") Long id) {
+        logger.info("Generating form for do test");
+        Test test = retrieve(id);
+        setAllVerdader(test);
+        return new ModelAndView("testdoform","test",test);
+    }
+
+    public void setAllVerdader(Test test) {
+        for(Iterator<QTest> i = test.getQuestions().iterator(); i.hasNext(); ) {
+            QTest item = i.next();
+            item.setAnswer("Verdader");
+        }
     }
 
 

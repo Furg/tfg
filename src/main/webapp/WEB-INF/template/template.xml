@@ -20,7 +20,12 @@
     </definition>
 
     <definition name="testform" extends="startTemplate">
-        <put-attribute name="content" value="/WEB-INF/views/testform.jsp"/>
+    <put-attribute name="content" value="/WEB-INF/views/testform.jsp"/>
+    <put-attribute name="scripts" value="/WEB-INF/views/testform-scripts.jsp"/>
+</definition>
+
+    <definition name="testdoform" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/testdoform.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/testform-scripts.jsp"/>
     </definition>
 

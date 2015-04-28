@@ -1,5 +1,7 @@
 package cat.udl.eps.softarch.hello.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import cat.udl.eps.softarch.hello.model.Measure;
 import cat.udl.eps.softarch.hello.repository.MeasureRepository;
@@ -61,8 +63,17 @@ public class MeasureController {
         Measure emptyMeasure = new Measure();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         emptyMeasure.setUsername(auth.getName());
-        emptyMeasure.setDate(Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid")).getTime());
-        return new ModelAndView("measureform","measure",emptyMeasure);
+
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+2");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        simpleDateFormat.setTimeZone(timeZone);
+        String currentDateTime = simpleDateFormat.format(calendar.getTime());
+
+        ModelAndView modelAndView = new ModelAndView("measureform","measure",emptyMeasure);
+        modelAndView.addObject("currentDateTime", currentDateTime);
+
+        return modelAndView;
     }
 
 

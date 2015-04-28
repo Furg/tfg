@@ -11,7 +11,7 @@
 <form:form method="${method}" action="${action}" modelAttribute="measure">
     <p>Fecha y Hora:</p>
     <div class="input-append date form_datetime">
-        <input size="16" type="text" name="date" value="<fmt:formatDate value='${measure.date}' pattern="yyyy-MM-dd HH:mm:ss" />"  readonly>
+        <input size="16" type="text" name="date" value="${currentDateTime}"  readonly>
         <span class="add-on"><i class="icon-th"></i></span>
     </div>
     <table>

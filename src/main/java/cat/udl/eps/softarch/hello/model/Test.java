@@ -10,13 +10,13 @@ import java.util.List;
  * Created by Angel on 13/04/2015.
  */
 @Entity
-public class Test {
+public class Test implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "Nombre no puede estar vac\u00EDo.")
     private String name;
 
     @NotBlank(message = "Tema no puede estar vac\u00EDo.")
@@ -73,6 +73,10 @@ public class Test {
 
     public void removeQuestion(QTest question) {
         questions.remove(question);
+    }
+
+    public boolean hasDescription() {
+        return !this.description.equals("");
     }
 
 }

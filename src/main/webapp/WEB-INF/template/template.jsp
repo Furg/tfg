@@ -15,10 +15,19 @@
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
+
         @font-face {
             font-family: 'Glyphicons Halflings';
             src: url('/static/bootstrap/fonts/glyphicons-halflings-regular.eot');
             src: url('/static/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/static/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/static/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/static/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+        }
+
+        span.glyphicon-remove-circle {
+            font-size: 1.2em;
+        }
+
+        #jumbo {
+            padding-top: 5px;
         }
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
@@ -32,7 +41,7 @@
     <tiles:insertAttribute name="menu" />
 </div>
 <div id="content" class="container">
-    <tiles:insertAttribute name="content" />
+        <tiles:insertAttribute name="content" />
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

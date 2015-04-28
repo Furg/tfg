@@ -25,7 +25,7 @@ public class Measure {
     @NotBlank
     private String username;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date date;
 
     @NotNull(message = "Peso no puede estar vac\u00EDo.")

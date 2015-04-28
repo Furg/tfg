@@ -21,13 +21,13 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Perfil</a></li>
+                <li class="active"><a href="/users/${pageContext.request.userPrincipal.name}">Perfil</a></li>
                 <li><a href="/measures/form">Nuevo Control</a></li>
                 <li><a href="#">Controles</a></li>
                 <li><a href="#">Realizar test</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -46,12 +46,12 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Perfil</a></li>
+                <li class="active"><a href="/users/${pageContext.request.userPrincipal.name}">${pageContext.request.userPrincipal.name}</a></li>
                 <li><a href="/tests/form">Nuevo Test</a></li>
                 <li><a href="/tests">Tests</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
