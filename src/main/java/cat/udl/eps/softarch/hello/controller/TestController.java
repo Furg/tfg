@@ -115,17 +115,33 @@ public class TestController {
         return true;
     }
 
-    // DO TEST
+    // DO
     @RequestMapping(value = "/do/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
-    public String createHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("test") Test test, BindingResult binding, HttpServletResponse response, Model model){
-        Test dbtest = retrieve(id);
-        compareAnswers(dbtest,test);
+    public String createHTML(@ModelAttribute("test") Test test, @PathVariable("id") Long id, BindingResult binding, HttpServletResponse response, Model model){
+        Test dbtest = retrieve(test.getId());
+        int correct = getNumberCorrectAnswers(dbtest, test);
+        int size = dbtest.getQuestions().size();
+
+        if(size != correct){
+            model.addAttribute("notCorrect",true);
+            model.addAttribute("size",size);
+            model.addAttribute("corrects",correct);
+            return "testdoform";
+        }
+
+        //Marcar test como realizado en este usuario
 
         return "redirect:/tests";
     }
 
-    public void compareAnswers(Test dbtest, Test test) {
-
+    public int getNumberCorrectAnswers(Test dbtest, Test test) {
+        int correct = 0;
+        for(int i=0; i < dbtest.getQuestions().size(); i++){
+            if(dbtest.getQuestions().get(i).getAnswer().equals(test.getQuestions().get(i).getAnswer())){
+                correct++;
+            }
+        }
+        return correct;
     }
 
     // Create do form

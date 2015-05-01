@@ -55,7 +55,7 @@
             <td><form:textarea path="comment" /> <i><form:errors path="comment"></form:errors></i></td>
         </tr>
         <tr>
-            <td><form:hidden path="username"/><i><form:errors path="username"></form:errors></i></td>
+            <td><form:hidden path="username"/></td>
         </tr>
         <tr>
             <td><input type="submit" value="Guardar" /></td>

@@ -46,6 +46,7 @@
                     <div class="col-sm-10">
                         <p>${qtest.question}</p>
                     </div>
+                    <form:hidden path="questions[${i.index}].question"/>
                     <label class="control-label col-sm-2">Respuesta:</label>
                     <div class="col-sm-10">
                         <form:select path="questions[${i.index}].answer"  class="form-control">
@@ -53,11 +54,15 @@
                             <form:option value="Falso">Falso</form:option>
                         </form:select>
                     </div>
-                    <p>.</p>
+                    <p style="color:#bce8f1">.</p>
                 </div>
             </c:forEach>
         </div>
 
+        <form:hidden path="id"/>
+        <form:hidden path="name"/>
+        <form:hidden path="type"/>
+        <form:hidden path="description"/>
 
         <c:choose>
             <c:when test="${test.questions.size() != 0}">
