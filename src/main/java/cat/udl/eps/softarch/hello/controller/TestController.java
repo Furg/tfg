@@ -1,10 +1,8 @@
 package cat.udl.eps.softarch.hello.controller;
 
-import cat.udl.eps.softarch.hello.model.Greeting;
-import cat.udl.eps.softarch.hello.model.Measure;
-import cat.udl.eps.softarch.hello.model.QTest;
-import cat.udl.eps.softarch.hello.model.Test;
+import cat.udl.eps.softarch.hello.model.*;
 import cat.udl.eps.softarch.hello.repository.MeasureRepository;
+import cat.udl.eps.softarch.hello.repository.PersonRepository;
 import cat.udl.eps.softarch.hello.repository.TestRepository;
 import cat.udl.eps.softarch.hello.service.PersonMeasuresService;
 import com.google.common.base.Preconditions;
@@ -24,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -47,19 +46,22 @@ public class TestController {
     @Autowired
     TestRepository testRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Test> list(@RequestParam(required=false, defaultValue="0") int page,
-                                   @RequestParam(required=false, defaultValue="10") int size) {
-        PageRequest request = new PageRequest(page, size);
-        return testRepository.findAll(request).getContent();
+    public Iterable<Test> list() {
+        return testRepository.findAll();
     }
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView listHTML(@RequestParam(required=false, defaultValue="0") int page,
-                                 @RequestParam(required=false, defaultValue="10") int size) {
-        return new ModelAndView("tests", "tests", list(page, size));
+    public ModelAndView listHTML(Principal principal) {
+        ModelAndView modelAndView = new ModelAndView("tests", "tests", list());
+        Person user = personRepository.findOne(principal.getName());
+        modelAndView.addObject("user",user);
+        return modelAndView;
     }
 
     // CREATE
@@ -117,10 +119,15 @@ public class TestController {
 
     // DO
     @RequestMapping(value = "/do/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
-    public String createHTML(@ModelAttribute("test") Test test, @PathVariable("id") Long id, BindingResult binding, HttpServletResponse response, Model model){
+    public String createHTML(@ModelAttribute("test") Test test, @PathVariable("id") Long id, BindingResult binding, HttpServletResponse response, Model model, Principal principal){
         Test dbtest = retrieve(test.getId());
         int correct = getNumberCorrectAnswers(dbtest, test);
         int size = dbtest.getQuestions().size();
+        Person user = personRepository.findOne(principal.getName());
+
+        if(user.getCompleteTests().contains(id)){
+            return "redirect:/tests";
+        }
 
         if(size != correct){
             model.addAttribute("notCorrect",true);
@@ -130,6 +137,9 @@ public class TestController {
         }
 
         //Marcar test como realizado en este usuario
+        user.addCompleteTest(id);
+        personRepository.save(user);
+
 
         return "redirect:/tests";
     }

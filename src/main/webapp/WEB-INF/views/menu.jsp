@@ -24,7 +24,7 @@
                 <li class="active"><a href="/users/${pageContext.request.userPrincipal.name}">Perfil</a></li>
                 <li><a href="/measures/form">Nuevo Control</a></li>
                 <li><a href="#">Controles</a></li>
-                <li><a href="#">Realizar test</a></li>
+                <li><a href="/tests">Realizar tests</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesión</a></li>

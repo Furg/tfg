@@ -30,6 +30,35 @@
         #jumbo {
             padding-top: 5px;
         }
+
+        .jumbotron p {
+            margin: 0 0 10px !important;
+            font-size: 14px !important;
+        }
+
+        .list-group-item {
+            border-radius: 5px;
+        }
+
+        .testItemList:hover span {
+            background-color: #337ab7;
+        }
+
+        .testComplete {
+             background-color: #2ecc71;
+         }
+
+        .testComplete:hover {
+            background-color: #2ecc71 !important;
+        }
+
+        .testComplete:active {
+            background-color: #2ecc71 !important;
+        }
+
+        .testComplete:focus {
+            background-color: #2ecc71 !important;
+        }
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">

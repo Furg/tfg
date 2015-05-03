@@ -80,5 +80,4 @@ public class Test implements Cloneable {
     public boolean hasDescription() {
         return !this.description.equals("");
     }
-
 }

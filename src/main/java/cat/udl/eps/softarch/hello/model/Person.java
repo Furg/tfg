@@ -2,6 +2,7 @@ package cat.udl.eps.softarch.hello.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
@@ -29,6 +30,9 @@ public class Person implements UserDetails{
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Measure> measures = new ArrayList<>();
+
+    @ElementCollection(fetch=FetchType.EAGER)
+    private List<Long> completeTests = new ArrayList<Long>();
 
     @URL
     private String imageUrl;
@@ -83,6 +87,18 @@ public class Person implements UserDetails{
 
     public void removeGreeting(Greeting greeting) {
         greetings.remove(greeting);
+    }
+
+    public List<Long> getCompleteTests() {
+        return completeTests;
+    }
+
+    public void addCompleteTest(Long newCompleteTest) {
+        completeTests.add(newCompleteTest);
+    }
+
+    public void removeCompleteTest(Long completeTest) {
+        completeTests.remove(completeTest);
     }
 
     @Override
