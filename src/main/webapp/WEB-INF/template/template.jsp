@@ -11,7 +11,7 @@
     <!-- Bootstrap -->
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-    <link href="/static/bootstrap/css/sweet-alert.css" rel="stylesheet" media="screen">
+    <link href="/static/bootstrap/css/sweetalert2.css" rel="stylesheet" media="screen">
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -77,7 +77,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/dynamic_list_helper2.js" type="text/javascript"></script>
-<script src="/static/bootstrap/js/sweet-alert.min.js" type="text/javascript"></script>
+<script src="/static/bootstrap/js/sweetalert2.min.js" type="text/javascript"></script>
 
 <div id="scripts">
     <tiles:insertAttribute name="scripts" />

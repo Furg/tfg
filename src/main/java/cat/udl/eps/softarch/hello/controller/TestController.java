@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -56,9 +57,17 @@ public class TestController {
     public Iterable<Test> list() {
         return testRepository.findAll();
     }
+
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView listHTML(Principal principal) {
+    public ModelAndView listHTML(Principal principal, @RequestParam(required = false) boolean completed, @RequestParam(required = false) Long preExp, @RequestParam(required = false) Long actualExp) {
         ModelAndView modelAndView = new ModelAndView("tests", "tests", list());
+
+        if(completed) {
+            modelAndView.addObject("completed", completed);
+            modelAndView.addObject("preExp", preExp);
+            modelAndView.addObject("actualExp", actualExp);
+        }
+
         Person user = personRepository.findOne(principal.getName());
         modelAndView.addObject("user",user);
         return modelAndView;
@@ -119,21 +128,23 @@ public class TestController {
 
     // DO
     @RequestMapping(value = "/do/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html;charset=UTF-8")
-    public String createHTML(@ModelAttribute("test") Test test, @PathVariable("id") Long id, BindingResult binding, HttpServletResponse response, Model model, Principal principal){
+    public ModelAndView createHTML(@ModelAttribute("test") Test test, @PathVariable("id") Long id, BindingResult binding, HttpServletResponse response, ModelAndView modelAndView, Principal principal, RedirectAttributes redirectAttributes){
         Test dbtest = retrieve(test.getId());
         int correct = getNumberCorrectAnswers(dbtest, test);
         int size = dbtest.getQuestions().size();
         Person user = personRepository.findOne(principal.getName());
 
         if(user.getCompleteTests().contains(id)){
-            return "redirect:/tests";
+            modelAndView.setViewName("redirect:/tests");
+            return modelAndView;
         }
 
         if(size != correct){
-            model.addAttribute("notCorrect",true);
-            model.addAttribute("size",size);
-            model.addAttribute("corrects",correct);
-            return "testdoform";
+            modelAndView.addObject("notCorrect", true);
+            modelAndView.addObject("size", size);
+            modelAndView.addObject("corrects", correct);
+            modelAndView.setViewName("testdoform");
+            return modelAndView;
         }
 
         //Marcar test como realizado en este usuario
@@ -141,7 +152,11 @@ public class TestController {
         personRepository.save(user);
 
 
-        return "redirect:/tests";
+        redirectAttributes.addFlashAttribute("completed",true);
+        redirectAttributes.addFlashAttribute("preExp",50);
+        redirectAttributes.addFlashAttribute("actualExp",20);
+        modelAndView.setViewName("redirect:/tests");
+        return modelAndView;
     }
 
     public int getNumberCorrectAnswers(Test dbtest, Test test) {
