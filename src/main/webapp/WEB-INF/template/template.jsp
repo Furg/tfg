@@ -59,6 +59,21 @@
         .testComplete:focus {
             background-color: #2ecc71 !important;
         }
+
+        .levelCircle
+        {
+            width:110px;
+            height:110px;
+            border-radius:250px;
+            font-size:60px;
+            color:#fff;
+            line-height:110px;
+            text-align:center;
+            background:#27ae60;
+            box-shadow: 0px 0px 20px black;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: #000;
+        }
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">

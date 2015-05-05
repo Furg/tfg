@@ -59,13 +59,17 @@ public class TestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView listHTML(Principal principal, @RequestParam(required = false) boolean completed, @RequestParam(required = false) Long preExp, @RequestParam(required = false) Long actualExp) {
+    public ModelAndView listHTML(Principal principal, @RequestParam(required = false) boolean completed,
+                                 @RequestParam(required = false) Long preExp, @RequestParam(required = false) Long actualExp,
+                                 @RequestParam(required = false) Long level) {
+
         ModelAndView modelAndView = new ModelAndView("tests", "tests", list());
 
         if(completed) {
             modelAndView.addObject("completed", completed);
             modelAndView.addObject("preExp", preExp);
             modelAndView.addObject("actualExp", actualExp);
+            modelAndView.addObject("level", level);
         }
 
         Person user = personRepository.findOne(principal.getName());
@@ -155,6 +159,7 @@ public class TestController {
         redirectAttributes.addFlashAttribute("completed",true);
         redirectAttributes.addFlashAttribute("preExp",50);
         redirectAttributes.addFlashAttribute("actualExp",20);
+        redirectAttributes.addFlashAttribute("level",1);
         modelAndView.setViewName("redirect:/tests");
         return modelAndView;
     }
