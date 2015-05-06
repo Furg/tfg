@@ -38,7 +38,7 @@ public class SignupController {
             if(!personRepository.exists(connection.getDisplayName()))
             {
                 user = new Person(connection.getDisplayName(), "");
-                user.setImageUrl(connection.getImageUrl());
+                user.setImageUrl(replaceLast(connection.getImageUrl(),"normal","400x400"));
                 personRepository.save(user);
                 //providerSignInUtils.doPostSignUp(user.getUsername(), request);
             }
@@ -52,5 +52,9 @@ public class SignupController {
             return "redirect:/users/"+connection.getDisplayName();
         }
         return null;
+    }
+
+    public static String replaceLast(String text, String regex, String replacement) {
+        return text.replaceFirst("(?s)(.*)" + regex, "$1" + replacement);
     }
 }

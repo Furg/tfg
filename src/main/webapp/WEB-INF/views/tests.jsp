@@ -8,7 +8,7 @@
     <h2>Tests</h2>
     <br/>
 
-    <c:if test="${not empty tests}">
+        <c:if test="${not empty tests}">
         <div class="bs-example">
             <div class="row">
                 <div class="list-group col-sm-6">

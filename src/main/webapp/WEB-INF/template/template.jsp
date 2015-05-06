@@ -74,6 +74,41 @@
             -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: #000;
         }
+
+        .levelCircleMini
+        {
+            width:50px;
+            height:50px;
+            border-radius:250px;
+            font-size:30px;
+            color:#fff;
+            line-height:50px;
+            text-align:center;
+            background:#27ae60;
+            box-shadow: 0px 0px 20px black;
+            -webkit-text-stroke-width: 1.5px;
+            -webkit-text-stroke-color: #000;
+        }
+
+        .under
+        {
+            position:relative;
+            left:0px;
+            top:0px;
+            z-index:1;
+        }
+        .over
+        {
+            position:absolute;
+            left:150px;
+            top:150px;
+            z-index:2;
+        }
+
+        #totalExp{
+            box-shadow: 1px 0px 25px black;
+        }
+
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
