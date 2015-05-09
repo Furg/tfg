@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 
 @Entity
-public class Measure {
+public class Measure implements Comparable<Measure> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,5 +133,18 @@ public class Measure {
 
     public void setGlucose(int glucose) {
         this.glucose = glucose;
+    }
+
+    public boolean hasComment() {
+        return !this.comment.equals("");
+    }
+
+    public boolean hasRations() {
+        return this.rations != 0;
+    }
+
+    @Override
+    public int compareTo(Measure o) {
+        return o.getDate().compareTo(this.getDate());
     }
 }

@@ -53,6 +53,9 @@ public class MeasureController {
             logger.info("Validation error: {}", binding);
             return "measureform";
         }
+
+        measure.setCategory(measure.getCategory().replaceAll(","," "));
+
         return "redirect:/users/"+create(measure).getUsername();
     }
 

@@ -60,7 +60,7 @@ public class UserController {
 
         ModelAndView model = new ModelAndView("user", "user", retrieve(username));
         model.addObject("username",name);
-        model.addObject("usermeasures",personMeasuresService.getPersonAndMeasures(username));
+        model.addObject("todaymeasures",personMeasuresService.getTodayMeasures(username));
 
         return model;
     }

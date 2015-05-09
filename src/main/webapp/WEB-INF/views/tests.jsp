@@ -14,14 +14,14 @@
                 <div class="list-group col-sm-6">
                     <h3>Diabetes</h3>
                     <c:forEach var="test" items="${tests}">
-                        <c:if test="${test.getType() == 'Diabetes'}">
-                            <c:if test="${!user.getCompleteTests().contains(test.getId())}"><a href="/tests/do/${test.getId()}" class="list-group-item testItemList"></c:if>
-                            <c:if test="${user.getCompleteTests().contains(test.getId())}"><a href="#" class="list-group-item testComplete"></c:if>
-                                    <span class="badge">${test.questions.size()} pregunta<c:if test="${test.questions.size() != 1}">s</c:if></span>
-                                    <h4 class="list-group-item-heading">${test.getName()}</h4>
-                                    <p class="list-group-item-text">${test.getDescription()}</p>
-                                </a>
-                        </c:if>
+                    <c:if test="${test.getType() == 'Diabetes'}">
+                    <c:if test="${!user.getCompleteTests().contains(test.getId())}"><a href="/tests/do/${test.getId()}" class="list-group-item testItemList"></c:if>
+                    <c:if test="${user.getCompleteTests().contains(test.getId())}"><a href="#" class="list-group-item testComplete"></c:if>
+                        <span class="badge">${test.questions.size()} pregunta<c:if test="${test.questions.size() != 1}">s</c:if></span>
+                        <h4 class="list-group-item-heading">${test.getName()}</h4>
+                        <p class="list-group-item-text">${test.getDescription()}</p>
+                    </a>
+                    </c:if>
                     </c:forEach>
                 </div>
                 <div class="list-group col-sm-6">

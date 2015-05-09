@@ -88,25 +88,24 @@
             box-shadow: 0px 0px 20px black;
             -webkit-text-stroke-width: 1.5px;
             -webkit-text-stroke-color: #000;
-        }
-
-        .under
-        {
-            position:relative;
-            left:0px;
-            top:0px;
-            z-index:1;
-        }
-        .over
-        {
             position:absolute;
-            left:150px;
-            top:150px;
             z-index:2;
         }
 
         #totalExp{
             box-shadow: 1px 0px 25px black;
+            margin-top: 15px;
+        }
+
+        #avatar {
+            display:block;
+            margin:auto;
+            box-shadow: 0px 0px 20px black;
+        }
+
+        #containerAvatar {
+            width: 100%;
+            text-align: center;
         }
 
     </style>
