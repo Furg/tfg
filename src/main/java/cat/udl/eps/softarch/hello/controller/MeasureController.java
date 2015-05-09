@@ -38,7 +38,7 @@ public class MeasureController {
     PersonMeasuresService personMeasuresService;
 
 // CREATE
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public Measure create(@Valid @RequestBody Measure measure) {
@@ -47,7 +47,7 @@ public class MeasureController {
         return newMeasure;
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
+    @RequestMapping(value = "/form", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public String createHTML(@Valid @ModelAttribute("measure") Measure measure, BindingResult binding, HttpServletResponse response){
         if(binding.hasErrors()){
             logger.info("Validation error: {}", binding);

@@ -119,8 +119,11 @@
 <div id="menu" class="navbar navbar-inverse navbar-fixed-top">
     <tiles:insertAttribute name="menu" />
 </div>
+
 <div id="content" class="container">
+    <div class="jumbotron container">
         <tiles:insertAttribute name="content" />
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
