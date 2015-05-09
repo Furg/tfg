@@ -9,52 +9,54 @@
 <c:set var="action" value="/tests/do/${test.id}"/>
 
 
-<form:form method="${method}" action="${action}" modelAttribute="test" id="questionListForm" class="form-horizontal container">
+<form:form method="${method}" action="${action}" modelAttribute="test" id="questionListForm" class="form-horizontal">
 
-    <div class="form-group">
-        <div class="row text-center">
-            <div class="col-sm-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Nombre</div>
-                    <div class="panel-body">${test.name}</div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Tema</div>
-                    <div class="panel-body">${test.type}</div>
-                </div>
-            </div>
-            <c:if test="${test.hasDescription()}">
-                    <div class="col-sm-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Descripción</div>
-                            <div class="panel-body">${test.description}</div>
-                        </div>
+    <div class="container">
+        <div class="form-group">
+            <div class="row text-center">
+                <div class="col-sm-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Nombre</div>
+                        <div class="panel-body">${test.name}</div>
                     </div>
-            </c:if>
-        </div>
-    </div>
-
-    <div class="form-group" id="questionListContainer">
-
-        <c:forEach items="${test.questions}" var="qtest" varStatus="i" begin="0" >
-            <div class="String alert alert-info">
-                <label class="control-label col-sm-2">Pregunta:</label>
-                <div class="col-sm-10">
-                    <p>${qtest.question}</p>
                 </div>
-                <form:hidden path="questions[${i.index}].question"/>
-                <label class="control-label col-sm-2">Respuesta:</label>
-                <div class="col-sm-10">
-                    <form:select path="questions[${i.index}].answer"  class="form-control">
-                        <form:option value="Verdadero">Verdadero</form:option>
-                        <form:option value="Falso">Falso</form:option>
-                    </form:select>
+                <div class="col-sm-3">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Tema</div>
+                        <div class="panel-body">${test.type}</div>
+                    </div>
                 </div>
-                <p style="color:#bce8f1">.</p>
+                <c:if test="${test.hasDescription()}">
+                        <div class="col-sm-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Descripción</div>
+                                <div class="panel-body">${test.description}</div>
+                            </div>
+                        </div>
+                </c:if>
             </div>
-        </c:forEach>
+        </div>
+
+        <div class="form-group" id="questionListContainer">
+
+            <c:forEach items="${test.questions}" var="qtest" varStatus="i" begin="0" >
+                <div class="String alert alert-info">
+                    <label class="control-label col-sm-2">Pregunta:</label>
+                    <div class="col-sm-10">
+                        <p>${qtest.question}</p>
+                    </div>
+                    <form:hidden path="questions[${i.index}].question"/>
+                    <label class="control-label col-sm-2">Respuesta:</label>
+                    <div class="col-sm-10">
+                        <form:select path="questions[${i.index}].answer"  class="form-control">
+                            <form:option value="Verdadero">Verdadero</form:option>
+                            <form:option value="Falso">Falso</form:option>
+                        </form:select>
+                    </div>
+                    <p style="color:#bce8f1">.</p>
+                </div>
+            </c:forEach>
+        </div>
     </div>
 
     <form:hidden path="id"/>

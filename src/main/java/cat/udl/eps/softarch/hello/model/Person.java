@@ -128,4 +128,16 @@ public class Person implements UserDetails{
 
     @Override
     public boolean isEnabled() { return true; }
+
+    public int getLevel(){
+        return this.experience / 100;
+    }
+
+    public int getPercent(){
+        return this.experience % 100;
+    }
+
+    public void addExperience(int exp) {
+        this.experience += exp;
+    }
 }

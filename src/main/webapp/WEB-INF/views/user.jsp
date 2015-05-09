@@ -21,11 +21,11 @@
                 <div class="col-xs-12 col-sm-12">
                     <br/>
                     <div class="col-xs-2 col-sm-2">
-                        <div class="text-center levelCircleMini">1</div>
+                        <div class="text-center levelCircleMini">${user.getLevel()}</div>
                     </div>
                     <div class="col-xs-8 col-sm-8">
                         <div id="totalExp" class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${user.getPercent()}%">
                                 <span class="sr-only"></span>
                             </div>
                         </div>

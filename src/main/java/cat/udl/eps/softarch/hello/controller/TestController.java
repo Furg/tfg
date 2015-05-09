@@ -151,15 +151,17 @@ public class TestController {
             return modelAndView;
         }
 
+        redirectAttributes.addFlashAttribute("level",user.getLevel());
+        redirectAttributes.addFlashAttribute("preExp",user.getPercent());
+
         //Marcar test como realizado en este usuario
         user.addCompleteTest(id);
+        user.addExperience(25);
         personRepository.save(user);
 
 
         redirectAttributes.addFlashAttribute("completed",true);
-        redirectAttributes.addFlashAttribute("preExp",50);
-        redirectAttributes.addFlashAttribute("actualExp",20);
-        redirectAttributes.addFlashAttribute("level",1);
+        redirectAttributes.addFlashAttribute("actualExp",user.getPercent());
         modelAndView.setViewName("redirect:/tests");
         return modelAndView;
     }
