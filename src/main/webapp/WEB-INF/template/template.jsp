@@ -37,6 +37,7 @@
         }
 
         .list-group-item {
+            margin: 10px;
             border-radius: 5px;
         }
 

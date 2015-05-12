@@ -14,6 +14,11 @@
         <put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
     </definition>
 
+    <definition name="measures" extends="startTemplate">
+        <put-attribute name="content" value="/WEB-INF/views/measures.jsp"/>
+        <put-attribute name="scripts" value="/WEB-INF/views/measures-scripts.jsp"/>
+    </definition>
+
     <definition name="measureform" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/measureform.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/measureform-scripts.jsp"/>

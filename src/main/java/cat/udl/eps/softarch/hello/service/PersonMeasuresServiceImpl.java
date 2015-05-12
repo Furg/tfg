@@ -37,6 +37,15 @@ public class PersonMeasuresServiceImpl implements PersonMeasuresService {
 
     @Transactional(readOnly = true)
     @Override
+    public List<Measure> getPersonMeasures(String username){
+        Person u = personRepository.findOne(username);
+        logger.info("User {} has {} measures", u.getUsername(), u.getMeasures().size());
+        Collections.sort(u.getMeasures());
+        return u.getMeasures();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<Measure> getTodayMeasures (String username){
         Person u = personRepository.findOne(username);
         List<Measure> todayMeasures = new ArrayList<Measure>();

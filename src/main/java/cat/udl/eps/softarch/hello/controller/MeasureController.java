@@ -1,9 +1,11 @@
 package cat.udl.eps.softarch.hello.controller;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import cat.udl.eps.softarch.hello.model.Measure;
+import cat.udl.eps.softarch.hello.model.Person;
 import cat.udl.eps.softarch.hello.repository.MeasureRepository;
 import cat.udl.eps.softarch.hello.service.PersonMeasuresService;
 import org.slf4j.Logger;
@@ -37,7 +39,16 @@ public class MeasureController {
     @Autowired
     PersonMeasuresService personMeasuresService;
 
-// CREATE
+    // LIST
+    @RequestMapping(method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView listHTML(Principal principal) {
+
+        ModelAndView modelAndView = new ModelAndView("measures", "mymeasures", personMeasuresService.getPersonMeasures(principal.getName()));
+
+        return modelAndView;
+    }
+
+    // CREATE
     @RequestMapping(value = "/form", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody

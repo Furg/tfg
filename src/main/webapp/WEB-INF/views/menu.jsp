@@ -23,7 +23,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/users/${pageContext.request.userPrincipal.name}">Perfil</a></li>
                 <li><a href="/measures/form">Nuevo Control</a></li>
-                <li><a href="#">Controles</a></li>
+                <li><a href="/measures">Controles</a></li>
                 <li><a href="/tests">Realizar tests</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
