@@ -42,8 +42,8 @@
                             <div class="col-xs-6 col-xs-offset-5 col-sm-4 col-sm-offset-0">
                                 <div id="measuresExp" class="progress progress-striped active">
                                     <c:choose>
-                                        <c:when test="${user.getTodaysMeasures().size() < 5}">
-                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${user.getTodaysMeasures().size()*20}%">${user.getTodaysMeasures().size()}/5
+                                        <c:when test="${sizeTodaysMeasures < 5}">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${sizeTodaysMeasures*20}%">${sizeTodaysMeasures}/5
                                                 <span class="sr-only"></span>
                                             </div>
                                         </c:when>
@@ -58,7 +58,7 @@
                         </div>
 
                         <c:choose>
-                            <c:when test="${user.getTodaysMeasures().size() != 0}">
+                            <c:when test="${sizeTodaysMeasures != 0}">
                                 <div class="list-group">
                                     <c:forEach var="measure" items="${user.getTodaysMeasures()}">
                                         <div class="list-group-item testItemList">

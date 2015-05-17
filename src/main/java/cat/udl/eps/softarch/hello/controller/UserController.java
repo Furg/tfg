@@ -55,7 +55,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTML(@PathVariable("username") String username, Principal principal, @RequestParam(required = false) boolean gainExp , @RequestParam(required = false) boolean completed ) {
+    public ModelAndView retrieveHTML(@PathVariable("username") String username, Principal principal, @RequestParam(required = false) boolean gainExp , @RequestParam(required = false) boolean completed, @RequestParam(required = false) Long preExp, @RequestParam(required = false) Long actualExp,
+                                     @RequestParam(required = false) Long level ) {
         String name = principal.getName(); //get logged in username
         Person user = retrieve(username);
         int sizeTodaysMeasures = user.getTodaysMeasures().size();
@@ -67,6 +68,9 @@ public class UserController {
             if(gainExp) {
                 model.addObject("gainExp", gainExp);
                 model.addObject("completed", false);
+                model.addObject("level", level);
+                model.addObject("actualExp", actualExp);
+                model.addObject("preExp", preExp);
             }else{
                 model.addObject("completed", completed);
             }

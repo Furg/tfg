@@ -62,7 +62,16 @@ public class MeasureController {
         }
 
         logger.info("Creating measure with weight'{}'", measure.getWeight());
+
+        Person user = personMeasuresService.getPersonAndMeasures(measure.getUsername());
+
+        redirectAttributes.addFlashAttribute("level",user.getLevel());
+        redirectAttributes.addFlashAttribute("preExp",user.getPercent());
+
         boolean gainExp = personMeasuresService.addMeasureToPerson(measure);
+
+        user = personMeasuresService.getPersonAndMeasures(measure.getUsername());
+        redirectAttributes.addFlashAttribute("actualExp",user.getPercent());
         redirectAttributes.addFlashAttribute("completed",true);
         redirectAttributes.addFlashAttribute("gainExp",gainExp);
         modelAndView.setViewName("redirect:/users/"+measure.getUsername());
