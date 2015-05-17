@@ -115,6 +115,21 @@
             text-align: center;
         }
 
+        .list-content .list-group .title{
+            background:#5bc0de;
+            border:2px solid #DDDDDD;
+            font-weight:bold;
+            color:#FFFFFF;
+        }
+        .list-group-item img {
+            height:80px;
+            width:80px;
+        }
+
+        .name {
+            color:#5bc0de;
+        }
+
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
@@ -127,10 +142,14 @@
     <tiles:insertAttribute name="menu" />
 </div>
 
-<div id="content" class="container">
+<div id="content" class="container col-lg-8 col-lg-offset-2">
     <div class="jumbotron container">
         <tiles:insertAttribute name="content" />
     </div>
+</div>
+
+<div id="tops">
+        <tiles:insertAttribute name="tops" />
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

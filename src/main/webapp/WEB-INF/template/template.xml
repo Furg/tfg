@@ -7,12 +7,14 @@
     <definition name="startTemplate" template="/WEB-INF/template/template.jsp">
         <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
+        <put-attribute name="tops" value=""/>
         <put-attribute name="scripts" value=""/>
     </definition>
 
     <definition name="user" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/user-scripts.jsp"/>
+        <put-attribute name="tops" value="/WEB-INF/views/tops.jsp"/>
     </definition>
 
     <definition name="measures" extends="startTemplate">

@@ -6,7 +6,7 @@
 
 <c:if test="${not empty user}">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                     <h2 class="text-center"><strong>${user.getUsername()}</strong></h2>
