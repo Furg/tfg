@@ -12,6 +12,7 @@
 
     <definition name="user" extends="startTemplate">
         <put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
+        <put-attribute name="scripts" value="/WEB-INF/views/user-scripts.jsp"/>
     </definition>
 
     <definition name="measures" extends="startTemplate">

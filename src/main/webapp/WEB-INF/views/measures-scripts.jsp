@@ -14,6 +14,8 @@
 
 
     function cleanFilter() {
+        $('#clearButton').hide();
+        $('#alertDayEmpty').hide();
         $('#datefilter').val('');
         $('.list-group-item').each(function(){
             $(this).show();
@@ -22,6 +24,8 @@
 
     $('#datefilter').change( function() {
         var text = $('#datefilter').val();
+
+        $('#clearButton').show();
 
         var allHidden = true;
 
@@ -43,5 +47,15 @@
         }
 
     })
+
+    function showComment(comment) {
+        swal({
+            title: "Comentario",
+            text: comment,
+            type: "info",
+            confirmButtonText: "OK",
+            closeOnConfirm: true
+        });
+    }
 
 </script>

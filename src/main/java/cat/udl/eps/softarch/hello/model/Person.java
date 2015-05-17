@@ -1,9 +1,8 @@
 package cat.udl.eps.softarch.hello.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -139,5 +138,34 @@ public class Person implements UserDetails{
 
     public void addExperience(int exp) {
         this.experience += exp;
+    }
+
+    public List<Measure> getTodaysMeasures(){
+        List<Measure> todayMeasures = new ArrayList<Measure>();
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+2");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        simpleDateFormat.setTimeZone(timeZone);
+        Date today = null;
+        try {
+            today = simpleDateFormat2.parse(simpleDateFormat.format(calendar.getTime()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+
+        for(Iterator<Measure> i = this.getMeasures().iterator(); i.hasNext(); ) {
+            Measure item = i.next();
+            if(item.getDate().after(today)){
+                todayMeasures.add(item);
+            }
+        }
+
+        Collections.sort(todayMeasures);
+
+        return todayMeasures;
     }
 }

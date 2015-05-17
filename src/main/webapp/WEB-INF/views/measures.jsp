@@ -14,7 +14,7 @@
                 <input size="16" type="text" id="datefilter" readonly class="form-control">
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
-            <button onClick="cleanFilter();" type="button" class="btn btn-xs btn-danger pull-right">
+            <button id="clearButton" onClick="cleanFilter();" type="button" class="btn btn-xs btn-danger pull-right" style="display: none;">
                 <span class="glyphicon glyphicon-remove"></span>&nbsp;
             </button>
         </div>
@@ -26,12 +26,13 @@
             <div class="list-group">
                 <c:forEach var="measure" items="${mymeasures}">
                     <div class="list-group-item testItemList">
-                        <c:if test="${measure.hasComment()}"><span class="badge"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></span></c:if>
+                        <c:if test="${measure.hasComment()}"><span class="badge" onClick="showComment('${measure.getComment()}');" style="cursor:pointer;cursor:hand;"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></span></c:if>
                         <h4 class="list-group-item-heading"><strong><fmt:formatDate value="${measure.getDate()}" pattern="dd-MM-yyyy HH:mm" /></strong></h4>
-                        <p class="list-group-item-text">${measure.getCategory()} <c:if test="${measure.hasComment()}">${measure.getRations()}  raciones</c:if></p>
+                        <p class="list-group-item-text">${measure.getFirstCategory()} ${measure.getSecondCategory()}<c:if test="${measure.hasComment()}">${measure.getRations()}  raciones</c:if></p>
                         <p class="list-group-item-text">Glucosa ${measure.getGlucose()}</p>
                         <p class="list-group-item-text">Peso ${measure.getWeight()}</p>
                         <p class="list-group-item-text">Insulina r&#225;pida ${measure.getrInsulin()}</p>
+                        <span onClick="document.location.href = '/measures/edit/${measure.getId()}'" class="badge" style="cursor:pointer;cursor:hand;"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></span>
                         <p class="list-group-item-text">Insulina lenta ${measure.getsInsulin()}</p>
                     </div>
                 </c:forEach>

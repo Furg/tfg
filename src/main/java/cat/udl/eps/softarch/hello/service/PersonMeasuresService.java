@@ -14,8 +14,7 @@ public interface PersonMeasuresService {
 
     List<Measure> getPersonMeasures(String username);
 
-    List<Measure> getTodayMeasures (String username);
+    boolean addMeasureToPerson(Measure measure);
 
-    Measure addMeasureToPerson(Measure measure);
-
+    void updateMeasureFromPerson(Measure measure, Long id);
 }

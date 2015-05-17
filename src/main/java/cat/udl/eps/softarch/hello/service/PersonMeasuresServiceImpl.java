@@ -12,6 +12,8 @@ import cat.udl.eps.softarch.hello.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -44,48 +46,64 @@ public class PersonMeasuresServiceImpl implements PersonMeasuresService {
         return u.getMeasures();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
-    public List<Measure> getTodayMeasures (String username){
-        Person u = personRepository.findOne(username);
-        List<Measure> todayMeasures = new ArrayList<Measure>();
-        Calendar c = Calendar.getInstance();
-
-        // set the calendar to start of today
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-
-        // and get that as a Date
-        Date today = c.getTime();
-
-        for(Iterator<Measure> i = u.getMeasures().iterator(); i.hasNext(); ) {
-            Measure item = i.next();
-            if(item.getDate().after(today)){
-                todayMeasures.add(item);
-            }
-        }
-
-        logger.info("User {} has {} today's measures", u.getUsername(), todayMeasures.size());
-
-        Collections.sort(todayMeasures);
-
-        return todayMeasures;
+    public void updateMeasureFromPerson(Measure updateMeasure, Long measureId) {
+        Measure oldMeasure = measureRepository.findOne(measureId);
+        oldMeasure.setDate(updateMeasure.getDate());
+        oldMeasure.setComment(updateMeasure.getComment());
+        oldMeasure.setFirstCategory(updateMeasure.getFirstCategory());
+        oldMeasure.setSecondCategory(updateMeasure.getSecondCategory());
+        oldMeasure.setGlucose(updateMeasure.getGlucose());
+        oldMeasure.setRations(updateMeasure.getRations());
+        oldMeasure.setrInsulin(updateMeasure.getrInsulin());
+        oldMeasure.setsInsulin(updateMeasure.getsInsulin());
+        oldMeasure.setWeight(updateMeasure.getWeight());
+        measureRepository.save(oldMeasure);
     }
-
-
-
 
     @Transactional
     @Override
-    public Measure addMeasureToPerson(Measure m) {
+    public boolean addMeasureToPerson(Measure m) {
         Person u = personRepository.findOne(m.getUsername());
+        boolean result = false;
         ///Controlar si no existeix l'usuari
+
+        try {
+
+            if(isToday(m.getDate())){
+
+                if(u.getTodaysMeasures().size() < 5){
+                    u.addExperience(5);
+                    result = true;
+                }
+
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         measureRepository.save(m);
         u.addMeasure(m);
         personRepository.save(u);
-        return m;
+        return result;
     }
+
+    private boolean isToday(Date date) throws ParseException {
+
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+2");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        simpleDateFormat.setTimeZone(timeZone);
+        Date today = simpleDateFormat2.parse(simpleDateFormat.format(calendar.getTime()));
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+
+        return date.after(today);
+    }
+
 
 }

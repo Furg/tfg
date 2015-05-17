@@ -51,16 +51,27 @@ public class UserController {
     public Person retrieve(@PathVariable("username") String username) {
         logger.info("Retrieving user {}", username);
         Preconditions.checkNotNull(personRepository.findOne(username), "User with id %s not found", username);
-        return personGreetingsService.getPersonAndGreetings(username);
+        return personMeasuresService.getPersonAndMeasures(username);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTML(@PathVariable("username") String username, Principal principal ) {
+    public ModelAndView retrieveHTML(@PathVariable("username") String username, Principal principal, @RequestParam(required = false) boolean gainExp , @RequestParam(required = false) boolean completed ) {
         String name = principal.getName(); //get logged in username
+        Person user = retrieve(username);
+        int sizeTodaysMeasures = user.getTodaysMeasures().size();
 
-        ModelAndView model = new ModelAndView("user", "user", retrieve(username));
+        ModelAndView model = new ModelAndView("user", "user", user);
         model.addObject("username",name);
-        model.addObject("todaymeasures",personMeasuresService.getTodayMeasures(username));
+        model.addObject("sizeTodaysMeasures", sizeTodaysMeasures);
+        if(completed) {
+            if(gainExp) {
+                model.addObject("gainExp", gainExp);
+                model.addObject("completed", false);
+            }else{
+                model.addObject("completed", completed);
+            }
+        }
+
 
         return model;
     }

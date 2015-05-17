@@ -2,12 +2,14 @@ package cat.udl.eps.softarch.hello.controller;
 
 import java.security.Principal;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import cat.udl.eps.softarch.hello.model.Measure;
 import cat.udl.eps.softarch.hello.model.Person;
 import cat.udl.eps.softarch.hello.repository.MeasureRepository;
 import cat.udl.eps.softarch.hello.service.PersonMeasuresService;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -49,25 +53,20 @@ public class MeasureController {
     }
 
     // CREATE
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Measure create(@Valid @RequestBody Measure measure) {
-        logger.info("Creating measure with weight'{}'", measure.getWeight());
-        Measure newMeasure = personMeasuresService.addMeasureToPerson(measure);
-        return newMeasure;
-    }
-
     @RequestMapping(value = "/form", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("measure") Measure measure, BindingResult binding, HttpServletResponse response){
+    public ModelAndView createHTML(@Valid @ModelAttribute("measure") Measure measure, BindingResult binding, HttpServletResponse response, ModelAndView modelAndView, RedirectAttributes redirectAttributes){
         if(binding.hasErrors()){
             logger.info("Validation error: {}", binding);
-            return "measureform";
+            modelAndView.setViewName("measureform");
+            return modelAndView;
         }
 
-        measure.setCategory(measure.getCategory().replaceAll(","," "));
-
-        return "redirect:/users/"+create(measure).getUsername();
+        logger.info("Creating measure with weight'{}'", measure.getWeight());
+        boolean gainExp = personMeasuresService.addMeasureToPerson(measure);
+        redirectAttributes.addFlashAttribute("completed",true);
+        redirectAttributes.addFlashAttribute("gainExp",gainExp);
+        modelAndView.setViewName("redirect:/users/"+measure.getUsername());
+        return modelAndView;
     }
 
     // Create form
@@ -84,12 +83,55 @@ public class MeasureController {
         simpleDateFormat.setTimeZone(timeZone);
         String currentDateTime = simpleDateFormat.format(calendar.getTime());
 
+
         ModelAndView modelAndView = new ModelAndView("measureform","measure",emptyMeasure);
         modelAndView.addObject("currentDateTime", currentDateTime);
 
         return modelAndView;
     }
 
+    // UPDATE
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public void update(@PathVariable("id") Long id, @Valid @RequestBody Measure measure) {
+        logger.info("Updating measure {}", id);
+        Preconditions.checkNotNull(measureRepository.findOne(id), "Measure with id %s not found", id);
+        personMeasuresService.updateMeasureFromPerson(measure, id);
+    }
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("greeting") Measure measure,
+                             BindingResult binding, Principal principal) {
+        if (binding.hasErrors()) {
+            logger.info("Validation error: {}", binding);
+            return "form";
+        }
+
+        Preconditions.checkArgument(checkIsOwner(principal.getName(),measure),"El control con id %s no pertenece al usuario actual.", id);
+
+        update(id, measure);
+
+        return "redirect:/measures";
+    }
+
+    // Update form
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView updateForm(@PathVariable("id") Long id, Principal principal) {
+        logger.info("Generating form for updating measure number {}", id);
+
+        Preconditions.checkNotNull(measureRepository.findOne(id), "Measure with id %s not found", id);
+
+        Measure measure = measureRepository.findOne(id);
+
+        Preconditions.checkArgument(checkIsOwner(principal.getName(),measure),"El control con id %s no pertenece al usuario actual.", id);
+
+        return new ModelAndView("measureform", "measure", measure);
+    }
+
+    private boolean checkIsOwner(String username, Measure measure) {
+        return measure.getUsername().equals(username);
+    }
 
 
 }

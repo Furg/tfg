@@ -98,6 +98,12 @@
             margin-top: 15px;
         }
 
+        #measuresExp{
+            box-shadow: 1px 0px 25px black;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
         #avatar {
             display:block;
             margin:auto;

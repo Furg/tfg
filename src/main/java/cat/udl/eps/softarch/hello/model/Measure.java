@@ -34,7 +34,10 @@ public class Measure implements Comparable<Measure> {
     private int weight;
 
     @NotBlank
-    private String category;
+    private String firstCategory;
+
+    @NotBlank
+    private String secondCategory;
 
     @NotNull(message = "Glucosa no puede estar vac\u00EDo.")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
@@ -53,12 +56,13 @@ public class Measure implements Comparable<Measure> {
 
     public Measure() {}
 
-    public Measure(String username, Date date, int weight, int glucose, String category) {
+    public Measure(String username, Date date, int weight, int glucose, String firstCategory, String secondCategory) {
         this.username = username;
         this.date = date;
         this.weight = weight;
         this.glucose = glucose;
-        this.category = category;
+        this.firstCategory = firstCategory;
+        this.secondCategory = secondCategory;
     }
 
     public long getId() { return id; }
@@ -87,12 +91,20 @@ public class Measure implements Comparable<Measure> {
         this.weight = weight;
     }
 
-    public String getCategory() {
-        return category;
+    public String getFirstCategory() {
+        return firstCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setFirstCategory(String firstCategory) {
+        this.firstCategory = firstCategory;
+    }
+
+    public String getSecondCategory() {
+        return secondCategory;
+    }
+
+    public void setSecondCategory(String secondCategory) {
+        this.secondCategory = secondCategory;
     }
 
     public int getRations() {
