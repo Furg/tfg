@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <sec:authorize access="hasRole('USER')">
-    <div class="container">
+    <div class="container col-lg-offset-2 col-lg-10">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -34,7 +34,7 @@
 </sec:authorize>
 
 <sec:authorize access="hasRole('ADMIN')">
-    <div class="container">
+    <div class="container col-lg-offset-2 col-lg-10">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>

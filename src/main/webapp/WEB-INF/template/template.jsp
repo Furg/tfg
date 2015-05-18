@@ -136,16 +136,14 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
-<body>
+<body class="container-fluid">
 
 <div id="menu" class="navbar navbar-inverse navbar-fixed-top">
     <tiles:insertAttribute name="menu" />
 </div>
 
-<div id="content" class="container col-lg-8 col-lg-offset-2">
-    <div class="jumbotron container">
+<div id="content" class="jumbotron container col-lg-8 col-lg-offset-2">
         <tiles:insertAttribute name="content" />
-    </div>
 </div>
 
 <div id="tops">
