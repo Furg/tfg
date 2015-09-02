@@ -94,19 +94,21 @@
         }
 
         #totalExp{
-            box-shadow: 1px 0px 25px black;
             margin-top: 15px;
         }
 
         #measuresExp{
-            box-shadow: 1px 0px 25px black;
             margin-top: 25px;
             margin-bottom: 30px;
         }
 
-        #avatar {
+        .avatar {
             display:block;
             margin:auto;
+            box-shadow: 0px 0px 20px black;
+        }
+
+        .avatarTop {
             box-shadow: 0px 0px 20px black;
         }
 
@@ -126,15 +128,62 @@
             width:80px;
         }
 
-        .name {
-            color:#5bc0de;
+        .numberTop{
+            border-radius: 10px;
+            background: #bde6f2;
+            border: 3px solid #5bc0de;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-bottom:12px;
         }
+
+        .levelCircleMiniTop
+        {
+            width:50px;
+            height:50px;
+            border-radius:250px;
+            font-size:30px;
+            color:#fff;
+            line-height:50px;
+            text-align:center;
+            background:#27ae60;
+            box-shadow: 0px 0px 20px black;
+            -webkit-text-stroke-width: 1.5px;
+            -webkit-text-stroke-color: #000;
+            margin-left:15px;
+
+        }
+
+        .containerAvatarLevelTop{
+            display:block;
+            margin:auto;
+        }
+
+
+        .progress {
+            position: relative;
+            background: rgba(245, 245, 245, 1);
+            border: 3px solid grey;
+            border-radius: 25px;
+            height: 25px;
+        }
+
+        .progress span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            color: black;
+        }
+
+
+
 
     </style>
     <link href="/static/bootstrap/css/bootstrap-social.css" rel="stylesheet" media="screen">
     <link href="/static/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet" media="screen">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title><tiles:getAsString name="title"/></title>
 </head>
 <body class="container-fluid">
 

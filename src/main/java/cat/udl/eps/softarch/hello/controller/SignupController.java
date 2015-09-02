@@ -40,14 +40,15 @@ public class SignupController {
                 user = new Person(connection.getDisplayName(), "");
                 user.setImageUrl(replaceLast(connection.getImageUrl(),"normal","400x400"));
                 personRepository.save(user);
-                //providerSignInUtils.doPostSignUp(user.getUsername(), request);
             }
             else
             {
                 user = personRepository.findOne(connection.getDisplayName());
             }
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user.getUsername(),
+                                                                                    null,
+                                                                                    user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return "redirect:/users/"+connection.getDisplayName();
         }

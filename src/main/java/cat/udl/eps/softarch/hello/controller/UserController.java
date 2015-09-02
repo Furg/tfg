@@ -13,6 +13,10 @@ import cat.udl.eps.softarch.hello.model.Person;
 import cat.udl.eps.softarch.hello.repository.PersonRepository;
 import cat.udl.eps.softarch.hello.service.PersonGreetingsService;
 import java.security.Principal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by http://rhizomik.net/~roberto/
@@ -77,6 +81,15 @@ public class UserController {
         }
 
 
+        model.addObject("topExpUsers", getTopExpUsers());
+
+
         return model;
+    }
+
+    public List<Person> getTopExpUsers(){
+        List<Person> users = personRepository.findAll();
+        Collections.sort(users);
+        return users;
     }
 }

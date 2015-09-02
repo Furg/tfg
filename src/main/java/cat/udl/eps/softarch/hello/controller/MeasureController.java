@@ -47,14 +47,21 @@ public class MeasureController {
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(Principal principal) {
 
-        ModelAndView modelAndView = new ModelAndView("measures", "mymeasures", personMeasuresService.getPersonMeasures(principal.getName()));
+        ModelAndView modelAndView = new ModelAndView("measures",
+                                                     "mymeasures",
+                                                      personMeasuresService.getPersonMeasures(principal.getName()));
 
         return modelAndView;
     }
 
     // CREATE
-    @RequestMapping(value = "/form", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public ModelAndView createHTML(@Valid @ModelAttribute("measure") Measure measure, BindingResult binding, HttpServletResponse response, ModelAndView modelAndView, RedirectAttributes redirectAttributes){
+    @RequestMapping(value = "/form", method = RequestMethod.POST,
+                    consumes = "application/x-www-form-urlencoded",
+                    produces="text/html")
+    public ModelAndView createHTML(@Valid @ModelAttribute("measure") Measure measure,
+                                   BindingResult binding, HttpServletResponse response,
+                                   ModelAndView modelAndView,
+                                   RedirectAttributes redirectAttributes){
         if(binding.hasErrors()){
             logger.info("Validation error: {}", binding);
             modelAndView.setViewName("measureform");
@@ -76,8 +83,11 @@ public class MeasureController {
         actualExp = user.getPercent();
 
         //To prevent a sync error
-        if(actualExp == preExp){
+        if(gainExp && actualExp == preExp){
             actualExp = preExp + 5;
+            if(actualExp > 100){
+                actualExp = actualExp - 100;
+            }
         }
 
         redirectAttributes.addFlashAttribute("actualExp",actualExp);
@@ -138,11 +148,13 @@ public class MeasureController {
     public ModelAndView updateForm(@PathVariable("id") Long id, Principal principal) {
         logger.info("Generating form for updating measure number {}", id);
 
-        Preconditions.checkNotNull(measureRepository.findOne(id), "Measure with id %s not found", id);
+        Preconditions.checkNotNull(measureRepository.findOne(id),
+                                   "Measure with id %s not found", id);
 
         Measure measure = measureRepository.findOne(id);
 
-        Preconditions.checkArgument(checkIsOwner(principal.getName(),measure),"El control con id %s no pertenece al usuario actual.", id);
+        Preconditions.checkArgument(checkIsOwner(principal.getName(),measure),
+                                    "El control con id %s no pertenece al usuario actual.", id);
 
         return new ModelAndView("measureform", "measure", measure);
     }

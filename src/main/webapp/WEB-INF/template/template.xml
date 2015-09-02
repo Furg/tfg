@@ -5,6 +5,7 @@
 <tiles-definitions>
 
     <definition name="startTemplate" template="/WEB-INF/template/template.jsp">
+        <put-attribute name="title" value="DÍAbetes" />
         <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
         <put-attribute name="content" value="/WEB-INF/views/login.jsp"/>
         <put-attribute name="tops" value=""/>
@@ -12,37 +13,44 @@
     </definition>
 
     <definition name="user" extends="startTemplate">
+        <put-attribute name="title" value="Perfil" />
         <put-attribute name="content" value="/WEB-INF/views/user.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/user-scripts.jsp"/>
         <put-attribute name="tops" value="/WEB-INF/views/tops.jsp"/>
     </definition>
 
     <definition name="measures" extends="startTemplate">
+        <put-attribute name="title" value="Controles" />
         <put-attribute name="content" value="/WEB-INF/views/measures.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/measures-scripts.jsp"/>
     </definition>
 
     <definition name="measureform" extends="startTemplate">
+        <put-attribute name="title" value="Formulario de un control" />
         <put-attribute name="content" value="/WEB-INF/views/measureform.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/measureform-scripts.jsp"/>
     </definition>
 
     <definition name="testform" extends="startTemplate">
+        <put-attribute name="title" value="Formulario de un test" />
     <put-attribute name="content" value="/WEB-INF/views/testform.jsp"/>
     <put-attribute name="scripts" value="/WEB-INF/views/testform-scripts.jsp"/>
 </definition>
 
     <definition name="testdoform" extends="startTemplate">
+        <put-attribute name="title" value="Test" />
         <put-attribute name="content" value="/WEB-INF/views/testdoform.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/testdoform-scripts.jsp"/>
     </definition>
 
     <definition name="tests" extends="startTemplate">
+        <put-attribute name="title" value="Tests" />
         <put-attribute name="content" value="/WEB-INF/views/tests.jsp"/>
         <put-attribute name="scripts" value="/WEB-INF/views/tests-scripts.jsp"/>
     </definition>
 
     <definition name="error" extends="startTemplate">
+        <put-attribute name="title" value="Error" />
         <put-attribute name="content" value="/WEB-INF/views/error.jsp"/>
     </definition>
 

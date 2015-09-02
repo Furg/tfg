@@ -59,15 +59,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter{
         return new ConnectController(connectionFactoryLocator, connectionRepository);
     }
 
-    /*@Bean
-    public ViewResolver getViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }*/
-
     @Bean
     public ViewResolver viewResolver() {
         UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();

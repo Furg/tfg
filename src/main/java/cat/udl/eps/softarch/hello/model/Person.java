@@ -19,7 +19,7 @@ import org.springframework.social.security.SocialUserDetails;
  * Created by http://rhizomik.net/~roberto/
  */
 @Entity
-public class Person implements UserDetails{
+public class Person implements UserDetails, Comparable<Person>{
     @Id
     @NotBlank(message = "Username cannot be blank")
     private String username;
@@ -109,7 +109,6 @@ public class Person implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //return AuthorityUtils.commaSeparatedStringToAuthorityList(this.getRole());
         return AuthorityUtils.createAuthorityList(this.role);
     }
 
@@ -168,4 +167,10 @@ public class Person implements UserDetails{
 
         return todayMeasures;
     }
+
+    @Override
+    public int compareTo(Person o) {
+        return Double.compare(o.experience, this.experience);
+    }
+
 }

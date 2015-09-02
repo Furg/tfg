@@ -42,7 +42,7 @@
     <div class="form-group" id="questionListContainer">
 
         <c:forEach items="${test.questions}" var="qtest" varStatus="i" begin="0" >
-            <div class="qtest alert alert-info">
+            <div class="qtest container alert alert-info">
                 <label class="control-label col-sm-2">Pregunta:</label>
                 <div class="col-sm-10">
                     <form:input path="questions[${i.index}].question" id="question${i.index}" class="form-control"/>
@@ -54,7 +54,8 @@
                         <form:option value="Falso">Falso</form:option>
                     </form:select>
                 </div>
-                <div class="text-right">
+                <div class="col-sm-12 text-right">
+                    <br/>
                     <a href="#" class="removeQuestion"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
                 </div>
             </div>
@@ -62,7 +63,7 @@
 
 
         <c:if test="${test.questions.size() == 0}">
-            <div class="qtest defaultRow alert alert-info">
+            <div class="qtest defaultRow container alert alert-info">
                 <label class="control-label col-sm-2">Pregunta:</label>
                 <div class="col-sm-10">
                     <input type="text" name="questions[].question" value="" class="form-control"/>
@@ -74,7 +75,8 @@
                         <option value="Falso">Falso</option>
                     </select>
                 </div>
-                <div class="text-right">
+                <div class="col-sm-12 text-right">
+                    <br/>
                     <a href="#" class="removeQuestion"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
                 </div>
             </div>
